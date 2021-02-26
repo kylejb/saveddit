@@ -27,6 +27,7 @@ module.exports = {
   ],
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prettier'],
   rules: {
+    'react/jsx-filename-extension': [1, { "extensions": [".tsx", ".ts"] }],
     // suppress errors for missing 'import React' in files
     'react/react-in-jsx-scope': 'off',
     // https://eslint.org/docs/rules/comma-dangle
