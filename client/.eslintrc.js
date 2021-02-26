@@ -30,6 +30,9 @@ module.exports = {
     'react/jsx-filename-extension': [1, { "extensions": [".tsx", ".ts"] }],
     // suppress errors for missing 'import React' in files
     'react/react-in-jsx-scope': 'off',
+    // suppress errors for
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
     // https://eslint.org/docs/rules/comma-dangle
     'comma-dangle': 'off',
     // https://eslint.org/docs/rules/function-paren-newline
