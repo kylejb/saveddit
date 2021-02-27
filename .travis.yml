@@ -14,7 +14,8 @@ jobs:
         - choco install python --version 3.9.0
         - python -m pip install --upgrade pip
       env: PATH=/c/Python39:/c/Python39/Scripts:$PATH
-install: pip3 install --upgrade pip  # all three OSes agree about 'pip3'
-# 'python' points to Python 2.7 on macOS but points to Python 3.9.0 on Linux and Windows
-# 'python3' is a 'command not found' error on Windows but 'py' works on Windows only
-script: python3 travis_test.py || python travis_test.py
+install:
+  - pip3 install --upgrade pip  # all three OSes agree about 'pip3'
+  - pip3 install pytest         # add pytest to all three OSes
+# run pytest in server/
+script: pytest --cov-report term --cov=server tests/
