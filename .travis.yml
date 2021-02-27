@@ -19,6 +19,7 @@ install:
   - pip3 install fastapi        # temp - installing core dependencies
   - pip3 install requests       # temp - installing core dependencies
   - pip3 install pydantic       # temp - installing core dependencies
+  - pip3 install uvicorn        # temp - installing core dependencies
   - pip3 install pytest         # add pytest to all three OSes
   - pip3 install pytest-cov     # add pytest plugin for coverage
 # run pytest in server/
