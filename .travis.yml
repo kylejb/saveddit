@@ -19,4 +19,4 @@ install:
   - pip3 install pytest         # add pytest to all three OSes
   - pip3 install pytest-cov     # add pytest plugin for coverage
 # run pytest in server/
-script: pytest --cov-report term --cov=server tests/
+script: pytest --cov-report term --cov=server
