@@ -17,5 +17,6 @@ jobs:
 install:
   - pip3 install --upgrade pip  # all three OSes agree about 'pip3'
   - pip3 install pytest         # add pytest to all three OSes
+  - pip3 install pytest-cov     # add pytest plugin for coverage
 # run pytest in server/
 script: pytest --cov-report term --cov=server tests/
