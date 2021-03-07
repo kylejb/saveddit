@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 def get_application() -> FastAPI:
     application = FastAPI(title="saveddit", debug=True, version="0.1.0")
 
-    origins = ["http://localhost:3000", "localhost:3000"]
+    origins = ["http://localhost:3000", "http://localhost"]
 
     application.add_middleware(
         CORSMiddleware,
