@@ -1,8 +1,15 @@
 version = 1
 
+test_patterns = [
+  "client/src/**/*_test.tsx"
+  "*/tests/**",
+  "test_*.py"
+]
+
 [[analyzers]]
 name = "python"
 enabled = true
+dependency_file_paths = ["server/pyproject.toml"]
 
   [analyzers.meta]
   runtime_version = "3.x.x"
@@ -10,6 +17,7 @@ enabled = true
 [[analyzers]]
 name = "javascript"
 enabled = true
+dependency_file_paths = ["client/package.json"]
 
   [analyzers.meta]
   environment = [
