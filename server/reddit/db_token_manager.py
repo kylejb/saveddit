@@ -44,7 +44,7 @@ class DBTokenManager(BaseTokenManager):
         """
         authorizer.refresh_token = self._current_user_refresh_token
 
-    def _helper(db, user_id, authorizer):
+    def _helper(self, db, user_id, authorizer):
         db_user = crud.get_user(db=db, user_id=user_id)
         db_user.reddit_refresh_token = authorizer.refresh_token
         db.commit()
