@@ -1,8 +1,5 @@
 import random
-import sys
-
 import praw
-
 from .db_token_manager import DBTokenManager
 
 
@@ -57,4 +54,4 @@ def main_():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
