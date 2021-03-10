@@ -30,3 +30,12 @@ class User(UserInDBBase):
 class UserInDB(UserInDBBase):
     refresh_token: str = None
     hashed_password: str
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
