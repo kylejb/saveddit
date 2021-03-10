@@ -12,7 +12,9 @@ function LinkRedditForm() {
     return (
         <>
             <h1>Link Reddit Form</h1>
-            <button onClick={redditOAuthHandler}>Link your Reddit Account</button>
+            <button type='button' onClick={redditOAuthHandler}>
+                Link your Reddit Account
+            </button>
         </>
     );
 }
