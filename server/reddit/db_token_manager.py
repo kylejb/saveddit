@@ -28,7 +28,7 @@ class DBTokenManager(BaseTokenManager):
         """
         # TODO - Refactor persistence to DB logic.
         # self._current_user.reddit_refresh_token = authorizer.refresh_token
-        self._helper(db=get_db(), user_id=self._current_user.id)
+        self._helper(get_db(), self._current_user.id)
 
     def pre_refresh_callback(self, authorizer):
         """Load the refresh token from user.
