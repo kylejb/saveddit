@@ -6,7 +6,7 @@ TODO:
   * backend will listen auto redirect on approval to store token
 **/
 
-function LinkRedditForm(): JSX.Element {
+const LinkRedditForm = (): JSX.Element => {
     const redditOAuthHandler = async () => null;
 
     return (
@@ -17,6 +17,6 @@ function LinkRedditForm(): JSX.Element {
             </button>
         </>
     );
-}
+};
 
 export default LinkRedditForm;
