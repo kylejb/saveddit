@@ -1,7 +1,7 @@
 version = 1
 
 test_patterns = [
-  "client/src/**/*_test.tsx"
+  "*/src/*_test.tsx"
   "*/tests/**",
   "test_*.py"
 ]
