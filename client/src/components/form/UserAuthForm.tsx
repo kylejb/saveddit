@@ -1,10 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
-type LoginFormProps = {
-    setAuthToken(arg: string): void;
+type UserAuthFormProps = {
+    setAuthToken: (arg: string) => void;
+    setFormType: (arg: 'login' | 'signup' | 'done') => void;
+    formType: string;
 };
 
-const LoginForm = ({ setAuthToken }: LoginFormProps): JSX.Element => {
+const UserAuthForm = ({ setAuthToken, setFormType, formType }: UserAuthFormProps): JSX.Element => {
     const [formData, setFormData] = useState({ username: '', password: '' });
 
     const formInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,15 +31,17 @@ const LoginForm = ({ setAuthToken }: LoginFormProps): JSX.Element => {
             method: 'POST',
             body: formDataObj,
         };
-
-        const response = await fetch('http://localhost:8000/api/token', options);
+        const URI = formType === 'login' ? 'token' : 'signup';
+        const response = await fetch(`http://localhost:8000/api/${URI}`, options);
         const data = await response.json();
+
         setAuthToken(data.access_token);
+        setFormType('done');
     };
 
     return (
         <>
-            <h1>Login Form</h1>
+            <h1>UserAuth Form</h1>
             <form onSubmit={formSubmitHandler}>
                 <input
                     name='username'
@@ -53,10 +57,10 @@ const LoginForm = ({ setAuthToken }: LoginFormProps): JSX.Element => {
                     onChange={formInputHandler}
                 />
                 <br />
-                <input type='submit' />
+                <input type='submit' value={formType} />
             </form>
         </>
     );
 };
 
-export default LoginForm;
+export default UserAuthForm;
