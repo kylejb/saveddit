@@ -23,8 +23,8 @@
     "declaration": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
-    "noFallthroughCasesInSwitch": true,
+    "incremental": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src"

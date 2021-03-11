@@ -1,5 +1,11 @@
 version = 1
 
+test_patterns = [
+  "client/src/**/*_test.tsx"
+  "*/tests/**",
+  "test_*.py"
+]
+
 [[analyzers]]
 name = "python"
 enabled = true
