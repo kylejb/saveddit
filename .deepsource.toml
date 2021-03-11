@@ -1,9 +1,10 @@
 version = 1
 
 test_patterns = [
-  "*/src/*_test.tsx"
-  "*/tests/**",
-  "test_*.py"
+  "**/client/**/*.test.tsx",
+  "**/server/tests/**",
+  "test_*.py",
+  "*.test.tsx"
 ]
 
 [[analyzers]]
