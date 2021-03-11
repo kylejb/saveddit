@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Form from 'components/form/Form';
+import LoginForm from 'components/form/LoginForm';
 import LinkRedditForm from 'LinkRedditForm';
 
 function App(): JSX.Element {
@@ -8,7 +8,7 @@ function App(): JSX.Element {
     return (
         <>
             <h1>App Component</h1>
-            {token ? <LinkRedditForm /> : <Form setAuthToken={setAuthToken} />}
+            {token ? <LinkRedditForm /> : <LoginForm setAuthToken={setAuthToken} />}
         </>
     );
 }

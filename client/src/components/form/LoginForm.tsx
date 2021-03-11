@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
-type FormProps = {
+type LoginFormProps = {
     setAuthToken(arg: string): void;
 };
 
-const Form = ({ setAuthToken }: FormProps): JSX.Element => {
+const LoginForm = ({ setAuthToken }: LoginFormProps): JSX.Element => {
     const [formData, setFormData] = useState({ username: '', password: '' });
 
     const formInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -59,4 +59,4 @@ const Form = ({ setAuthToken }: FormProps): JSX.Element => {
     );
 };
 
-export default Form;
+export default LoginForm;
