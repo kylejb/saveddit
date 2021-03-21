@@ -5,12 +5,11 @@ from db.crud import get_user_by_attribute
 
 
 def reddit_client(token_manager=None):
-    reddit_client = praw.Reddit(
+    return praw.Reddit(
         "saveddit",
         user_agent="obtain_refresh_token_test/v0",
         token_manager=token_manager,
     )
-    return reddit_client
 
 
 def create_state():
