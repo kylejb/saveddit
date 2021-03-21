@@ -37,10 +37,5 @@ def make_authorization_url(state):
     return url
 
 
-def authenticate_with_reddit():
-    text = '<a href="%s">Authenticate with reddit</a>'
-    return text % make_authorization_url()
-
-
 def get_reddit_token(token: str):
     return reddit_client().auth.authorize(token)
