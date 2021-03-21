@@ -11,7 +11,7 @@ function App(): JSX.Element {
             <h1>App Component</h1>
 
             {token ? (
-                <LinkRedditForm />
+                <LinkRedditForm token={token} />
             ) : (
                 <>
                     <UserAuthForm
