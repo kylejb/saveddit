@@ -45,7 +45,9 @@ const LinkRedditForm = ({ token }: LinkRedditFormProps): JSX.Element => {
             <a target='_blank' rel='noreferrer' href={authLink}>
                 Hi
             </a>
-            <button onClick={clickHandler}>Test</button>
+            <button type='button' onClick={clickHandler}>
+                Test
+            </button>
         </>
     );
 };
