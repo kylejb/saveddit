@@ -29,6 +29,7 @@ class User(UserInDBBase):
 # Additional properties stored in DB
 class UserInDB(UserInDBBase):
     refresh_token: str = None
+    state: str = None
     hashed_password: str
 
 
