@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from api.api_v1.routers.auth import auth_router
 from api.api_v1.routers.users import users_router
+from api.api_v1.routers.reddit import reddit_router
+
 from core.auth import get_current_user
 
 # temporary mechanism for migrations
@@ -44,6 +46,7 @@ app.include_router(
     tags=["users"],
     dependencies=[Depends(get_current_user)],
 )
+app.include_router(reddit_router, prefix="/api", tags=["reddit"])
 app.include_router(auth_router, prefix="/api", tags=["auth"])
 
 if __name__ == "__main__":
