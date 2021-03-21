@@ -11,8 +11,12 @@ def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
 
 
-def get_user_by_attribute(db: Session, attribute: str):
-    return db.query(models.User).filter(models.User.attribute == attribute).first()
+def get_user_by_attribute(db: Session, **filter_attributes):
+    query = db.query(models.User)
+    for attr, value in filter_attributes.items():
+        query = query.filter(getattr(models.User, attr) == value)
+    results = query.first()
+    return results
 
 
 def create_user(db: Session, user: schemas.UserCreate):
