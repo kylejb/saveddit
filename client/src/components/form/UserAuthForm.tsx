@@ -9,19 +9,6 @@ type UserAuthFormProps = {
 const UserAuthForm = ({ setAuthToken, setFormType, formType }: UserAuthFormProps): JSX.Element => {
     const [formData, setFormData] = useState({ username: '', password: '' });
 
-    const formInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setFormData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value,
-        }));
-    };
-
-    const formSubmitHandler = (e: FormEvent) => {
-        e.preventDefault();
-        loginRequest();
-        setFormData({ username: '', password: '' });
-    };
-
     const loginRequest = async (): Promise<void> => {
         const formDataObj = new FormData();
         formDataObj.append('username', formData.username);
@@ -37,6 +24,19 @@ const UserAuthForm = ({ setAuthToken, setFormType, formType }: UserAuthFormProps
 
         setAuthToken(data.access_token);
         setFormType('done');
+    };
+
+    const formInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const formSubmitHandler = (e: FormEvent) => {
+        e.preventDefault();
+        loginRequest();
+        setFormData({ username: '', password: '' });
     };
 
     return (
