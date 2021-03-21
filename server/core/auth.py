@@ -42,14 +42,14 @@ def authenticate_user(
     return user
 
 
-def sign_up_new_user(db, email: str, password: str):
-    user = get_user_by_attribute(db, email)
+def sign_up_new_user(db, username: str, password: str):
+    user = get_user_by_attribute(db, username=username)
     if user:
         return False  # User already exists
     new_user = create_user(
         db,
         schemas.UserCreate(
-            username=email,
+            username=username,
             password=password,
         ),
     )
