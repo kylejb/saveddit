@@ -1,24 +1,28 @@
 import random
 import praw
-from .db_token_manager import DBTokenManager
+from db_token_manager import DBTokenManager
+
+
+def reddit_client():
+    return praw.Reddit(
+        "saveddit",
+        user_agent="obtain_refresh_token_test/v0",
+    )
 
 
 def main(state):
     """Provide the program's entry point when directly executed."""
     scopes = ["identity", "history"]
 
-    reddit = praw.Reddit(
-        redirect_uri="http://localhost:8000/auth",
-        user_agent="obtain_refresh_token_test/v0",
-    )
+    reddit = reddit_client()
 
     url = reddit.auth.url(scopes, state, "permanent")
     print(f"Now open this url in your browser: {url}")
     return reddit
 
 
-def reddit_auth(reddit, token):
-    return reddit.auth.authorize(token)
+def reddit_auth(token):
+    return reddit_client().auth.authorize(token)
 
 
 def state_generator():
