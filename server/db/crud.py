@@ -22,3 +22,11 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def update_user_token_by_state(db: Session, state: int, token: str):
+    db_user = get_user_by_attribute(db=db, attribute=state)
+    db_user.refresh_token = token
+    db.commit()
+    db.refresh(db_user)
+    return db_user
