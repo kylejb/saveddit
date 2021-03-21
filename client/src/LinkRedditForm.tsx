@@ -17,7 +17,7 @@ const LinkRedditForm = ({ token }: LinkRedditFormProps): JSX.Element => {
     const redditOAuthHandler = async () => {
         const options = {
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: `Bearer ${token}`,
             },
         };
         const response = await fetch('http://localhost:8000/api/reddit/authenticate', options);
@@ -28,7 +28,7 @@ const LinkRedditForm = ({ token }: LinkRedditFormProps): JSX.Element => {
     const clickHandler = async () => {
         const options = {
             headers: {
-                Authorization: 'Bearer ' + token,
+                Authorization: `Bearer ${token}`,
             },
         };
         const response = await fetch('http://localhost:8000/api/reddit', options);
