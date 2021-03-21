@@ -28,9 +28,8 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 
-def update_user_token_by_state(db: Session, state: int, token: str):
-    db_user = get_user_by_attribute(db=db, attribute=state)
-    db_user.refresh_token = token
+def update_user_refresh_token(db: Session, db_user, reddit_refresh_token: str):
+    db_user.reddit_refresh_token = reddit_refresh_token
     db.commit()
     db.refresh(db_user)
     return db_user
