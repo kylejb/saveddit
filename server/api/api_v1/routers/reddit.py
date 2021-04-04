@@ -1,8 +1,13 @@
 from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
-from core.auth import get_current_user
+from reddit.db_token_manager import DBTokenManager
 
+from db.session import get_db
+from db.crud import update_user_refresh_token
+
+from core.auth import get_current_user
 from core.reddit import (
     make_authorization_url,
     create_and_save_state,
@@ -10,12 +15,6 @@ from core.reddit import (
     get_reddit_token,
     reddit_client,
 )
-
-from db.session import get_db
-from db.crud import update_user_refresh_token
-from reddit.db_token_manager import DBTokenManager
-
-from fastapi.responses import RedirectResponse
 
 reddit_router = r = APIRouter()
 
