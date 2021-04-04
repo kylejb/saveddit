@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, status, HTTPException
+from sqlalchemy.orm import Session
 
 from core.auth import get_current_user
 
@@ -20,7 +21,7 @@ reddit_router = r = APIRouter()
 
 
 @r.get("/reddit/callback")
-def callback(state, code, db=Depends(get_db)):
+def callback(state, code, db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate state",
@@ -37,13 +38,15 @@ def callback(state, code, db=Depends(get_db)):
 
 
 @r.get("/reddit/authenticate")
-async def get_auth_url(db=Depends(get_db), current_user=Depends(get_current_user)):
+async def get_auth_url(
+    db: Session = Depends(get_db), current_user=Depends(get_current_user)
+):
     state = create_and_save_state(db, current_user)
     return make_authorization_url(state)
 
 
 @r.get("/reddit")
-def something(current_user=Depends(get_current_user), db=Depends(get_db)):
+def something(current_user=Depends(get_current_user), db: Session = Depends(get_db)):
     # [TEMP]: Assuming all current_users have refresh tokens here
     TOKEN_MANAGER = DBTokenManager(current_user, db)
     reddit = reddit_client(TOKEN_MANAGER)
