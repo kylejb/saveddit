@@ -1,19 +1,19 @@
 from praw.util.token_manager import BaseTokenManager
-from db import crud
-from db.session import get_db
 
 
 class DBTokenManager(BaseTokenManager):
-    """Wrapper to interact with BaseTokenManager (an Abstract Class)."""
+    """Wrapper to interact with an Abstract Class."""
 
-    def __init__(self, current_user):
-        """Load and save refresh token from user attribute.
+    def __init__(self, current_user, db):
+        """Load and save refresh token from current_user.
 
-        :param current_user_token: The string value of user's refresh token
+        :param current_user: Instance of current_user object
+        :param db: Current session of db
         """
         super().__init__()
+        self._db = db
         self._current_user = current_user
-        self._current_user_token = current_user.reddit_refresh_token
+        self._current_user_refresh_token = current_user.reddit_refresh_token
 
     def post_refresh_callback(self, authorizer):
         """Update the saved copy of the refresh token.
@@ -26,9 +26,9 @@ class DBTokenManager(BaseTokenManager):
         tokens. This callback can be used for saving the updated
         ``refresh_token``.
         """
-        # TODO - Refactor persistence to DB logic.
-        # self._current_user.reddit_refresh_token = authorizer.refresh_token
-        self._helper(db=get_db(), user_id=self._current_user.id, authorizer=authorizer)
+        self._current_user.reddit_refresh_token = authorizer.refresh_token
+        self._db.commit()
+        self._db.refresh(self._current_user)
 
     def pre_refresh_callback(self, authorizer):
         """Load the refresh token from user.
@@ -43,10 +43,3 @@ class DBTokenManager(BaseTokenManager):
         ``refresh_token``.
         """
         authorizer.refresh_token = self._current_user_refresh_token
-
-    def _helper(self, db, user_id, authorizer):
-        db_user = crud.get_user(db=db, user_id=user_id)
-        db_user.reddit_refresh_token = authorizer.refresh_token
-        db.commit()
-        db.refresh(db_user)
-        return db_user

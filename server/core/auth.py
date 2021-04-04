@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException, status
 from core import security
 from jose import JWTError, jwt
 from db import schemas, session
-from db.crud import get_user_by_username, create_user
+from db.crud import get_user_by_attribute, create_user
 from sqlalchemy.orm import Session
 
 
@@ -25,7 +25,7 @@ async def get_current_user(
         token_data = schemas.TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = get_user_by_username(db, username=token_data.username)
+    user = get_user_by_attribute(db, username=token_data.username)
     if user is None:
         raise credentials_exception
     return user
@@ -34,7 +34,7 @@ async def get_current_user(
 def authenticate_user(
     username: str, password: str, db: Session = Depends(session.get_db)
 ):
-    user = get_user_by_username(db=db, username=username)
+    user = get_user_by_attribute(db=db, username=username)
     if not user:
         return False
     if not security.verify_password(password, user.hashed_password):
@@ -42,14 +42,14 @@ def authenticate_user(
     return user
 
 
-def sign_up_new_user(db, email: str, password: str):
-    user = get_user_by_username(db, email)
+def sign_up_new_user(db, username: str, password: str):
+    user = get_user_by_attribute(db, username=username)
     if user:
         return False  # User already exists
     new_user = create_user(
         db,
         schemas.UserCreate(
-            username=email,
+            username=username,
             password=password,
         ),
     )
