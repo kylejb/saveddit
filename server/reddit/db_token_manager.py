@@ -2,12 +2,13 @@ from praw.util.token_manager import BaseTokenManager
 
 
 class DBTokenManager(BaseTokenManager):
-    """Wrapper to interact with BaseTokenManager (an Abstract Class)."""
+    """Wrapper to interact with an Abstract Class."""
 
     def __init__(self, current_user, db):
-        """Load and save refresh token from user attribute.
+        """Load and save refresh token from current_user.
 
-        :param current_user_token: The string value of user's refresh token
+        :param current_user: Instance of current_user object
+        :param db: Current session of db
         """
         super().__init__()
         self._db = db
@@ -25,9 +26,9 @@ class DBTokenManager(BaseTokenManager):
         tokens. This callback can be used for saving the updated
         ``refresh_token``.
         """
-        # TODO - Refactor persistence to DB logic.
-        # self._current_user.reddit_refresh_token = authorizer.refresh_token
-        self._helper(authorizer=authorizer)
+        self._current_user.reddit_refresh_token = authorizer.refresh_token
+        self._db.commit()
+        self._db.refresh(self._current_user)
 
     def pre_refresh_callback(self, authorizer):
         """Load the refresh token from user.
@@ -42,9 +43,3 @@ class DBTokenManager(BaseTokenManager):
         ``refresh_token``.
         """
         authorizer.refresh_token = self._current_user_refresh_token
-
-    def _helper(self, authorizer):
-        self._current_user.reddit_refresh_token = authorizer.refresh_token
-        self._db.commit()
-        self._db.refresh(self._current_user)
-        return self._current_user
